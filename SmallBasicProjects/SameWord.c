@@ -3,6 +3,17 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+void strip_newline(char *s) {
+    int i = 0;
+    while (s[i] != '\0') {
+        if (s[i] == '\n') {
+            s[i] = '\0';
+            return;
+        }
+        i++;
+    }
+}
+
 void getInput(char *input, int size) {
     printf("Please enter a word or phrase: ");
     fgets(input, size, stdin);
@@ -14,17 +25,16 @@ void getInput2(char *comp, int size) {
 }
 
 bool check(char *input, char *comp) {
-    if (sizeof(*input) == sizeof(*comp)) {
-        int index = 0;
-        while (input[index] != 0) {
-            if (input[index] != comp[index]) {
-                return false;
-            }
-            index++;
+    int i = 0;
+
+    while (input[i] != '\0' && comp[i] != '\0') {
+        if (input[i] != comp[i]) {
+            return false;
         }
-        return true;
+        i++;
     }
-    return false;
+
+    return input[i] == '\0' && comp[i] == '\0';
 }
 
 void runIt() {
